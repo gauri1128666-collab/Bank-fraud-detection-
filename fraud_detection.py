@@ -7,7 +7,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 import warnings
-warnings.filterwarnings('ignore')
+
 
 print("Starting Bank Fraud Detection Project...")
 print("------------------------------------------")
