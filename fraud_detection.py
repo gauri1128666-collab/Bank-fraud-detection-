@@ -9,8 +9,8 @@ from sklearn.metrics import accuracy_score, confusion_matrix, classification_rep
 import warnings
 
 
-print("Starting Bank Fraud Detection Project...")
-print("------------------------------------------")
+print("Starting Bank Fraud Detection Project")
+
 
 
 np.random.seed(10)
@@ -146,9 +146,8 @@ print()
 
 
 # 
-print("------------------------------------------")
 print("Testing on new transactions:")
-print("------------------------------------------")
+
 
 
 t1 = pd.DataFrame([[500, 14, 0.1, 0]], columns=features)
@@ -165,8 +164,8 @@ print(f"Transaction 2 (amount=15000, time=2am, risk=0.95, foreign)")
 print(f"  Result : {'FRAUD' if r2==1 else 'NORMAL'} | Fraud chance: {p2*100:.1f}%")
 
 print()
-print("------------------------------------------")
+
 print("Project Complete!")
 print(f"Best Model    : Random Forest")
 print(f"Best Accuracy : {acc2*100:.2f}%")
-print("------------------------------------------")
+
