@@ -166,6 +166,5 @@ print(f"  Result : {'FRAUD' if r2==1 else 'NORMAL'} | Fraud chance: {p2*100:.1f}
 print()
 
 print("Project Complete!")
-print(f"Best Model    : Random Forest")
-print(f"Best Accuracy : {acc2*100:.2f}%")
+
 
