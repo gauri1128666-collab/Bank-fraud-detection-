@@ -165,6 +165,6 @@ print(f"  Result : {'FRAUD' if r2==1 else 'NORMAL'} | Fraud chance: {p2*100:.1f}
 
 print()
 
-print("Project Complete!")
+
 
 
