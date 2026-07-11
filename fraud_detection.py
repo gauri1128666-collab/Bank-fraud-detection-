@@ -1,6 +1,3 @@
-# Bank Fraud Detection Project
-# Done by : 1st Year Diploma Student
-# Topic   : Machine Learning
 
 import pandas as pd
 import numpy as np
@@ -15,9 +12,6 @@ warnings.filterwarnings('ignore')
 print("Starting Bank Fraud Detection Project...")
 print("------------------------------------------")
 
-# ---- STEP 1: CREATE DATA ----
-# I am creating fake bank transaction data for my project
-# In real life we use kaggle dataset but here i made my own
 
 np.random.seed(10)
 total = 5000
@@ -31,7 +25,7 @@ normal_data = {
     'label': [0] * 4900   # 0 = not fraud
 }
 
-# fraud transactions
+
 fraud_data = {
     'amount': np.random.randint(3000, 20000, 100),
     'time_of_day': np.random.randint(0, 5, 100),         # late night = fraud
@@ -44,7 +38,7 @@ df1 = pd.DataFrame(normal_data)
 df2 = pd.DataFrame(fraud_data)
 df  = pd.concat([df1, df2], ignore_index=True)
 
-# shuffle the data
+
 df = df.sample(frac=1, random_state=42).reset_index(drop=True)
 
 print(f"Total transactions : {len(df)}")
@@ -53,7 +47,7 @@ print(f"Normal cases       : {(df['label']==0).sum()}")
 print()
 
 
-# ---- STEP 2: SOME GRAPHS ----
+
 
 plt.figure(figsize=(12, 4))
 
@@ -64,7 +58,7 @@ plt.bar(['Normal', 'Fraud'], counts.values, color=['blue', 'red'])
 plt.title('Normal vs Fraud')
 plt.ylabel('Count')
 
-# graph 2 - amount comparison
+
 plt.subplot(1, 3, 2)
 plt.hist(df[df['label']==0]['amount'], bins=30, alpha=0.6, color='blue', label='Normal')
 plt.hist(df[df['label']==1]['amount'], bins=30, alpha=0.6, color='red', label='Fraud')
@@ -72,7 +66,7 @@ plt.title('Transaction Amount')
 plt.xlabel('Amount')
 plt.legend()
 
-# graph 3 - time of day
+
 plt.subplot(1, 3, 3)
 plt.hist(df[df['label']==0]['time_of_day'], bins=20, alpha=0.6, color='blue', label='Normal')
 plt.hist(df[df['label']==1]['time_of_day'], bins=20, alpha=0.6, color='red', label='Fraud')
@@ -86,7 +80,6 @@ plt.close()
 print("Graphs saved as fraud_graphs.png")
 
 
-# ---- STEP 3: PREPARE DATA FOR MODEL ----
 
 features = ['amount', 'time_of_day', 'risk_score', 'is_foreign']
 X = df[features]
@@ -102,7 +95,7 @@ print(f"Testing data size  : {len(X_test)}")
 print()
 
 
-# ---- STEP 4: TRAIN MODELS ----
+
 
 # Model 1 - Logistic Regression (simple model i learned in class)
 print("Training Logistic Regression...")
@@ -121,14 +114,14 @@ acc2  = accuracy_score(y_test, pred2)
 print(f"Random Forest Accuracy       : {acc2*100:.2f}%")
 print()
 
-# Random Forest is better so i will use that
+
 print("Using Random Forest as final model")
 print()
 print("Classification Report:")
 print(classification_report(y_test, pred2, target_names=['Normal', 'Fraud']))
 
 
-# ---- STEP 5: CONFUSION MATRIX ----
+
 
 cm = confusion_matrix(y_test, pred2)
 print("Confusion Matrix:")
@@ -152,20 +145,19 @@ print("Confusion matrix saved as confusion_matrix.png")
 print()
 
 
-# ---- STEP 6: TEST ON NEW TRANSACTION ----
-
+# 
 print("------------------------------------------")
 print("Testing on new transactions:")
 print("------------------------------------------")
 
-# test case 1 - looks normal
+
 t1 = pd.DataFrame([[500, 14, 0.1, 0]], columns=features)
 r1 = model2.predict(t1)[0]
 p1 = model2.predict_proba(t1)[0][1]
 print(f"Transaction 1 (amount=500, time=2pm, risk=0.1)")
 print(f"  Result : {'FRAUD' if r1==1 else 'NORMAL'} | Fraud chance: {p1*100:.1f}%")
 
-# test case 2 - looks like fraud
+
 t2 = pd.DataFrame([[15000, 2, 0.95, 1]], columns=features)
 r2 = model2.predict(t2)[0]
 p2 = model2.predict_proba(t2)[0][1]
